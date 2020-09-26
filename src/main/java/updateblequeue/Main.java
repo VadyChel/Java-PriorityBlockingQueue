@@ -1,9 +1,9 @@
-package Queue;
+package updateblequeue;
 
 public class Main {
 
     public static void main(String[] args) {
-        final UpdatableQueue queue = new UpdatableQueue();
+        final UpdatableQueue queue = new UpdatableQueue(5);
 
         new Thread(){
             @Override
@@ -17,9 +17,9 @@ public class Main {
         new Thread(){
             @Override
             public void run() {
-                queue.addQueueItem(130, "Content first of 130 id item");
+                queue.addQueueItem(130, 1000);
                 queue.addQueueItem(1056, "Content first of 1056 id item");
-                queue.addQueueItem(10, "Content third of 10 id item");
+                QueueItem item = queue.addQueueItem(10, "Content third of 10 id item");
             }
         }.start();
 

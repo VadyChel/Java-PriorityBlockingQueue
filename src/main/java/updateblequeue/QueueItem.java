@@ -1,12 +1,11 @@
-package Queue;
+package updateblequeue;
 
 import java.util.HashMap;
 
 public class QueueItem implements Comparable<QueueItem>{
-    public int id;
-    public int version;
-    public int limitUpdates;
-    public HashMap content;
+    private int id;
+    private int version;
+    private HashMap content;
 
     public QueueItem(int id, int version, HashMap content) {
         this.setId(id);

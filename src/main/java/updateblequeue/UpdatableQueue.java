@@ -1,28 +1,48 @@
-package Queue;
+package updateblequeue;
 
 import java.util.HashMap;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class UpdatableQueue{
-    public PriorityBlockingQueue<QueueItem> queue = new PriorityBlockingQueue();
+    private PriorityBlockingQueue<QueueItem> queue = new PriorityBlockingQueue();
+    private int limitUpdates;
 
-    public void addQueueItem(int id, String content){
+    public UpdatableQueue(int limitUpdates) {
+        this.setLimitUpdates(limitUpdates);
+    }
+
+    public void setLimitUpdates(int limitUpdates){
+        this.limitUpdates = limitUpdates;
+    }
+
+    public int getLimitUpdates() {
+        return limitUpdates;
+    }
+
+    public QueueItem addQueueItem(int id, Object content){
         boolean state = false;
 
         for (QueueItem item: queue){
             if (item.getId() == id){
                 state = true;
                 item.setVersion(item.getVersion()+1);
-                item.content.put(item.getVersion(), content);
+                item.getContent().put(item.getVersion(), content);
+                if (item.getContent().size() > this.limitUpdates){
+                    System.out.println("Item "+item.getId()+" has reached limit updates: "+this.limitUpdates);
+                    QueueItem obj = takeQueueItem(item.getId());
+                    return obj;
+                }
             }
         }
 
         if (!state){
-            HashMap<Integer, String> hashContent = new HashMap();
+            HashMap<Integer, Object> hashContent = new HashMap();
             QueueItem QueueItem = new QueueItem(id, 1, hashContent);
             hashContent.put(1, content);
             queue.add(QueueItem);
+            return QueueItem;
         }
+        return null;
     }
 
     public QueueItem takeQueueItem(int id){
