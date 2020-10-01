@@ -5,17 +5,27 @@ import java.util.HashMap;
 public class QueueItem implements Comparable<QueueItem>{
     private int id;
     private int version;
-    private HashMap content;
+    private String content;
+    private HashMap updates;
 
-    public QueueItem(int id, int version, HashMap content) {
+    public QueueItem(int id, int version, String content, HashMap updates) {
         this.setId(id);
         this.setVersion(version);
         this.setContent(content);
+        this.setUpdates(updates);
     }
 
     @Override
     public int compareTo(QueueItem o) {
         return 0;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public int getId() {
@@ -34,11 +44,11 @@ public class QueueItem implements Comparable<QueueItem>{
         this.version = version;
     }
 
-    public HashMap getContent() {
-        return content;
+    public HashMap getUpdates() {
+        return updates;
     }
 
-    public void setContent(HashMap content) {
-        this.content = content;
+    public void setUpdates(HashMap updates) {
+        this.updates = updates;
     }
 }
