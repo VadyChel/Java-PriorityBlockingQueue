@@ -159,7 +159,7 @@ public class UpdatableQueueTest {
         queue.add(5, "Content 4");
 
         int count = 1;
-        while (count < 5){
+        while (count < 6){
             QueueItem item = queue.pop();
             OutputItems.add(item);
             count++;
@@ -168,7 +168,7 @@ public class UpdatableQueueTest {
         for (QueueItem item: OutputItems){
             Assert.assertEquals(4, item.getUpdates().size());
         }
-        Assert.assertEquals(4, OutputItems.size());
+        Assert.assertEquals(5, OutputItems.size());
     }
 
 }
